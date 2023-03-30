@@ -11,6 +11,7 @@ import frc.robot.subsystems.*;
 import frc.robot.commands.*;
 import frc.robot.commands.Auto.AutoDrive;
 import frc.robot.commands.Auto.FinalArmSequence;
+import frc.robot.commands.Intake.ArmCommand;
 import frc.robot.commands.Intake.ArmUpParallel;
 // import frc.robot.commands.Auto.MiddleAutoSequence;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -40,6 +41,7 @@ public class Robot extends TimedRobot {
   public static ArmSubsystem ArmSubsystem = new ArmSubsystem();
   public static IntakeSubsystem IntakeSubsystem = new IntakeSubsystem();
   public static IntakeWristSubsystem IntakeWristSubsystem = new IntakeWristSubsystem();
+  public static ArmCommand armCommand = new ArmCommand();
 
   public static OI OI = new OI();
 
@@ -76,6 +78,7 @@ public class Robot extends TimedRobot {
     Camera = CameraServer.startAutomaticCapture();
     CameraServer.startAutomaticCapture();
     compressor.enableDigital();
+    armCommand.schedule();
   }
 
  

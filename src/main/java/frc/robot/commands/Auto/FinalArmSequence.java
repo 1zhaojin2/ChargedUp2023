@@ -18,6 +18,7 @@ public class FinalArmSequence extends SequentialCommandGroup {
   public FinalArmSequence() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new ArmUpParallel(), new WaitCommand(0.5), new SolReverse(), new ArmDownSequence());
+    //addCommands(new ArmUpParallel(), new WaitCommand(0.5), new SolReverse(), new ArmDownSequence());
+    addCommands(new AutoArm(40));
   }
 }

@@ -4,6 +4,8 @@
 
 package frc.robot.commands.Auto;
 
+import edu.wpi.first.wpilibj.Timer;
+import java.util.concurrent.TimeUnit;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
@@ -15,7 +17,7 @@ public class AutoArm extends CommandBase {
   double setpoint;
 
   /** Creates a new AutoArm. */
-  public AutoArm(double speed, double setpoint) {
+  public AutoArm(double setpoint) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.ArmSubsystem);
     this.speed = speed;
@@ -29,8 +31,19 @@ public class AutoArm extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.ArmSubsystem.runArm(speed);
-    SmartDashboard.putBoolean("auto enabled", true);
+    // Robot.ArmSubsystem.runArm(speed);
+    // SmartDashboard.putBoolean("auto enabled", true);
+    SmartDashboard.putNumber("executing", 1);
+    Robot.ArmSubsystem.moveToSetpoint(30);
+    // wait 2 seconds
+    try {
+      TimeUnit.SECONDS.sleep(5);
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    //wait 2 seconds and then move back to position 90
+    Robot.ArmSubsystem.moveToSetpoint(30);
   }
 
   // Called once the command ends or is interrupted.
