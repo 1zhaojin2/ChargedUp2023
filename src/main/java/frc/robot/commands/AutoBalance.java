@@ -22,7 +22,7 @@ public class AutoBalance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // Robot.DriveSubsystem.autoBalance();
+    Robot.DriveSubsystem.autoBalance();
   }
 
   // Called once the command ends or is interrupted.

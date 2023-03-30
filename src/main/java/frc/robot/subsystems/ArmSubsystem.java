@@ -8,6 +8,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.DigitalInput;
+
+import com.revrobotics.AbsoluteEncoder;
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType; 
 import com.revrobotics.RelativeEncoder;
@@ -120,7 +123,35 @@ public class ArmSubsystem extends SubsystemBase {
   public boolean armEnabled(boolean enabled) {
     return enabled;
   }
-  
+
+  // create a method that uses the Absolute Motor Encoder to move the arm to a setpoint
+
+
+  public void moveToSetpoint(double setpoint) {
+    double ArmEncoderPosition = -armEncoderOne.getPosition();
+    SmartDashboard.putNumber("Encoder Position: ", ArmEncoderPosition);
+    // add an error tolerance to the setpoint to prevent the arm from oscillating around the setpoint 
+    double tolerance = 0.5;
+    double error = setpoint - ArmEncoderPosition;
+    SmartDashboard.putNumber("Error: ", error);
+    if (Math.abs(error) > tolerance) {
+      // use the error to calculate the speed of the arm, make sure that it does not go too slow so it does not reach the target or too fast to overshoot the target
+      double speed = 0.5 * error;
+      SmartDashboard.putNumber("Speed: ", speed);
+      // make sure that the speed does not exceed the max speed of the arm
+      if (speed > 0.5) {
+        speed = 0.5;
+      } else if (speed < 0.01 && speed > 0) {
+        speed = 0.01;
+      } else if (speed < -0.5) {
+        speed = -0.5;
+      } else if (speed > -0.01 && speed < 0) {
+        speed = -0.01;
+      }
+      // move the arm
+      runArm(speed);
+    }
+  }  
 }
 
   

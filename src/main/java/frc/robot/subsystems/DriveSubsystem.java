@@ -84,32 +84,33 @@ public class DriveSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("drive encoder", driveEncoder.getPosition());
   }
 
-  // public void autoBalance() {
-  //   double threshold = 10.0; // adjust as needed
+  public void autoBalance() {
+    double threshold = 5.0; // adjust as needed
 
-  //   double yaw = ahrs.getAngle();
-  //   double pitch = ahrs.getPitch();
-  //   double roll = ahrs.getRoll(); 
-  //   double left;
-  //   double right;
-    
-  //   if (Math.abs(yaw) > threshold) {
-  //     SmartDashboard.putBoolean("balance enabled", true);
-  //     // If the pitch angle exceeds the threshold, reverse the direction of the motors
-  //     double yawRadian = yaw * (Math.PI / 180.0);
-  //     left = Math.sin(yawRadian) * -0.5;
-  //     right = Math.sin(yawRadian) * -0.5;
+    double yaw = ahrs.getAngle();
+    double pitch = ahrs.getPitch();
+    double roll = ahrs.getRoll(); 
+    double left;
+    double right;
 
-  //     Left1.set(left);
-  //     Left2.set(left);
-  //     Right1.set(right);
-  //     Right2.set(right);
-  //   }   
+    if (Math.abs(yaw) > threshold) {
+      SmartDashboard.putBoolean("balance enabled", true);
+      // If the pitch angle exceeds the threshold, reverse the direction of the motors
 
-  //   SmartDashboard.putNumber("pitch", pitch);
-  //   SmartDashboard.putNumber("roll", roll);
-  //   SmartDashboard.putNumber("yaw", yaw);
-  // }
+      double yawRadian = yaw * (Math.PI / 180.0);
+      left = Math.sin(yawRadian) * -0.5;
+      right = Math.sin(yawRadian) * -0.5;
+
+      Left1.set(left);
+      Left2.set(left);
+      Right1.set(right);
+      Right2.set(right);
+    }   
+
+    SmartDashboard.putNumber("pitch", pitch);
+    SmartDashboard.putNumber("roll", roll);
+    SmartDashboard.putNumber("yaw", yaw);
+  }
 
   public void driveReset(){
     ArcadeDrive(0, 0);
